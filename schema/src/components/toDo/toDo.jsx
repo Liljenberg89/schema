@@ -1,7 +1,7 @@
 import { useState } from "react";
+import "./toDo.css";
 
-const ToDo = () => {
-  const [tasks, setTasks] = useState([]);
+const ToDo = ({ tasks, setTasks }) => {
   const [taskText, setTaskText] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskTime, setTaskTime] = useState("");
@@ -38,7 +38,7 @@ const ToDo = () => {
   };
 
   return (
-    <div>
+    <div className="toDo-container">
       <h1>📝 To-Do List</h1>
 
       <form onSubmit={addTask}>
@@ -66,7 +66,7 @@ const ToDo = () => {
         />
         <button type="submit">Lägg till</button>
       </form>
-
+      {/* 
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>
@@ -85,6 +85,7 @@ const ToDo = () => {
           </li>
         ))}
       </ul>
+      */}
     </div>
   );
 };
