@@ -1,9 +1,10 @@
 import ToDo from "./components/toDo/toDo";
+import Schema from "./components/schema/schema";
 
 function App() {
   return (
     <>
-      <ToDo></ToDo>
+      <Schema></Schema>
     </>
   );
 }

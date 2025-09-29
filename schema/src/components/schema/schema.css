@@ -1,0 +1,21 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.schema-box {
+  width: 70vw;
+  height: 70vh;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  grid-template-rows: 100px auto auto auto auto auto;
+
+  justify-content: space-between;
+}
+.days {
+  padding: 5px;
+  display: grid;
+  border-left: solid black 1px;
+}
