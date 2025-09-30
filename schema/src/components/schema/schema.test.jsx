@@ -5,3 +5,9 @@ describe("Simple passing test", () => {
     expect(true).toBe(true);
   });
 });
+
+describe("Simple passing test", () => {
+  it("should always pass", () => {
+    expect(true).toBe(true);
+  });
+});
