@@ -18,6 +18,7 @@ const Schema = ({ tasks = [] }) => {
   });
 
   useEffect(() => {
+    console.log(tasks);
     if (tasks.length > 0) {
       const task = tasks[tasks.length - 1];
       const rightDay = getWeekday(task.day).toLowerCase();
@@ -42,10 +43,10 @@ const Schema = ({ tasks = [] }) => {
           </h2>
           {tasksArray.map((task) => (
             <div key={task.id}>
+              <h4> {task.description}</h4>
               <h4>
                 {task.time} {task.text}
               </h4>
-              <span> {task.description}</span>
             </div>
           ))}
         </div>
