@@ -10,9 +10,10 @@ describe("Simple passing test", () => {
 });
 
 describe("Måndag", () => {
-  it("visar texten Måndag", () => {
+  it("visar texten rätt dagar", () => {
     render(<Schema />);
 
     expect(screen.getByText("Måndag")).toBeInTheDocument();
+    expect(screen.getByText("Fredag")).toBeInTheDocument();
   });
 });
