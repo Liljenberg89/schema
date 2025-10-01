@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import "./schema.css";
 
-const Schema = ({ tasks }) => {
+const Schema = ({ tasks = [] }) => {
   const getWeekday = (taskDay) => {
     const date = new Date(taskDay);
     return date.toLocaleDateString("sv-SE", { weekday: "long" });
