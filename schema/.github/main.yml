@@ -2,8 +2,8 @@ name: Run Vitest
 
 on:
   push:
-    branches-ignore:
-      - main
+    # branches-ignore:
+    #   - main
   pull_request:
     branches:
       - main
@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./schema  
+        working-directory: ./schema
 
       - name: Run Vitest
         run: npx vitest --run
