@@ -3,7 +3,7 @@ name: Run Vitest
 on:
   push:
     # branches-ignore:
-    #   - main
+    - main
   pull_request:
     branches:
       - main
