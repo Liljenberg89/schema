@@ -15,5 +15,6 @@ describe("Måndag", () => {
 
     expect(screen.getByText("Måndag")).toBeInTheDocument();
     expect(screen.getByText("Fredag")).toBeInTheDocument();
+    expect(screen.getByText("Onsdag")).toBeInTheDocument();
   });
 });
