@@ -10,6 +10,7 @@ describe("Kollar om alla dagar visas", () => {
     expect(screen.getByText("Måndag")).toBeInTheDocument();
     expect(screen.getByText("Onsdag")).toBeInTheDocument();
     expect(screen.getByText("Fredag")).toBeInTheDocument();
+    expect(screen.getByText("Söndag")).toBeInTheDocument();
   });
 });
 
