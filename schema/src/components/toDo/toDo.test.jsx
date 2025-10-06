@@ -43,7 +43,8 @@ describe("ToDo addTask", () => {
     };
 
     addTask("", "Beskrivning", "12:00", "2025-10-06");
-    
+
     expect(tasks.length).toBe(0);
   });
 });
+  

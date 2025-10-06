@@ -28,7 +28,7 @@ const ToDo = ({ tasks, setTasks }) => {
     setTaskDay("");
     setTaskCategory("Jobb");
   };
-  
+
   const toggleDone = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -88,7 +88,7 @@ const ToDo = ({ tasks, setTasks }) => {
 
         <button type="submit">Lägg till</button>
       </form>
-
+    
       {/* 
       <div className="filter-buttons">
         {["Alla", "Jobb", "Skola", "Kul"].map((cat) => (
