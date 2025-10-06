@@ -28,7 +28,7 @@ const ToDo = ({ tasks, setTasks }) => {
     setTaskDay("");
     setTaskCategory("Jobb");
   };
-
+  
   const toggleDone = (id) => {
     setTasks(
       tasks.map((task) =>
