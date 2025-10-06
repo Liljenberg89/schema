@@ -6,6 +6,8 @@ const ToDo = ({ tasks, setTasks }) => {
   const [taskDescription, setTaskDescription] = useState("");
   const [taskTime, setTaskTime] = useState("");
   const [taskDay, setTaskDay] = useState("");
+  const [taskCategory, setTaskCategory] = useState("Jobb");
+  const [filter, setFilter] = useState("Alla");
 
   const addTask = (e) => {
     e.preventDefault();
@@ -16,6 +18,7 @@ const ToDo = ({ tasks, setTasks }) => {
       description: taskDescription,
       time: taskTime,
       day: taskDay,
+      category: taskCategory,
       done: false,
     };
     setTasks([...tasks, newTask]);
@@ -23,6 +26,7 @@ const ToDo = ({ tasks, setTasks }) => {
     setTaskDescription("");
     setTaskTime("");
     setTaskDay("");
+    setTaskCategory("Jobb");
   };
 
   const toggleDone = (id) => {
@@ -36,6 +40,9 @@ const ToDo = ({ tasks, setTasks }) => {
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
+
+  const filteredTasks = 
+    filter === "Alla" ? tasks : tasks.filter((task) => task.category === filter);
 
   return (
     <div className="toDo-container">
@@ -64,11 +71,39 @@ const ToDo = ({ tasks, setTasks }) => {
           value={taskDay}
           onChange={(e) => setTaskDay(e.target.value)}
         />
+        <label>
+          Kategori:
+          <select
+            value={taskCategory}
+            onChange={(e) => setTaskCategory(e.target.value)}
+          >
+            <option value="" disabled>
+              Välj kategori
+            </option>
+            <option value="Jobb">Jobb</option>
+            <option value="Skola">Skola</option>
+            <option value="Kul">Kul</option>
+          </select>
+        </label>
+
         <button type="submit">Lägg till</button>
       </form>
+    
       {/* 
+      <div className="filter-buttons">
+        {["Alla", "Jobb", "Skola", "Kul"].map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setFilter(cat)}
+            className={filter === cat ? "active" : ""}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
       <ul>
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <li key={task.id}>
             <span
               onClick={() => toggleDone(task.id)}
@@ -77,7 +112,7 @@ const ToDo = ({ tasks, setTasks }) => {
                 textDecoration: task.done ? "line-through" : "none",
               }}
             >
-              <strong>{task.text}</strong> <br />
+              <strong>{task.text}</strong> ({task.category}) <br />
               {task.description} <br />
               Tid: {task.time} | Dag: {task.day}
             </span>
