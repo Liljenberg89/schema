@@ -42,9 +42,10 @@ const Schema = ({ tasks = [] }) => {
   };
 
   const addDays = (date, days) => {
-    date.setDate(date.getDate() + days);
-    date.setHours(0, 0, 0, 0);
-    return date;
+    const d = new Date(date);
+    d.setDate(d.getDate() + days);
+    d.setHours(0, 0, 0, 0);
+    return d;
   };
 
   const toYMD = (d) => {
