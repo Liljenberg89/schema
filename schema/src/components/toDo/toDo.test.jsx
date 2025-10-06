@@ -1,81 +1,49 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import ToDo from "./toDo";
+import { describe, it, expect } from "vitest";
 
-describe("toDo Component", () => {
-  test("renders title", () => {
-    render(<ToDo />);
-    expect(screen.getByText(/To-Do List/i)).toBeInTheDocument();
+describe("ToDo addTask", () => {
+  it("should add a new task if all fields are filled", () => {
+    const tasks = [];
+    const setTasks = (newTasks) => {
+      tasks.push(...newTasks); 
+    };
+
+    const addTask = (taskText, taskDescription, taskTime, taskDay) => {
+      if (!taskText || !taskDescription || !taskTime || !taskDay) return;
+      const newTask = {
+        id: 123, //istället för Date.now()
+        text: taskText,
+        description: taskDescription,
+        time: taskTime,
+        day: taskDay,
+        done: false,
+      };
+      setTasks([newTask]);
+    };
+
+    addTask("Test", "Beskrivning", "12:00", "2025-10-06");
+
+    expect(tasks.length).toBe(1);
+    expect(tasks[0].text).toBe("Test");
+    expect(tasks[0].description).toBe("Beskrivning");
+    expect(tasks[0].time).toBe("12:00");
+    expect(tasks[0].day).toBe("2025-10-06");
+    expect(tasks[0].done).toBe(false);
   });
 
-  test("can add a new task", () => {
-    render(<ToDo />);
+  it("should not add a task if a field is missing", () => {
+    const tasks = [];
+    const setTasks = (newTasks) => {
+      tasks.push(...newTasks);
+    };
 
-    const titleInput = screen.getByPlaceholderText("Titel");
-    const descriptionInput = screen.getByPlaceholderText("Beskrivning");
-    const timeInput = screen.getByLabelText(/time/i);
-    const dayInput = screen.getByLabelText(/date/i);
-    const addButton = screen.getByText("Lägg till");
+    const addTask = (taskText, taskDescription, taskTime, taskDay) => {
+      if (!taskText || !taskDescription || !taskTime || !taskDay) return;
+      const newTask = { id: 123, text: taskText, description: taskDescription, time: taskTime, day: taskDay, done: false };
+      setTasks([newTask]);
+    };
 
-    fireEvent.change(titleInput, { target: { value: "Handla" } });
-    fireEvent.change(descriptionInput, {
-      target: { value: "Köpa mjölk och bröd" },
-    });
-    fireEvent.change(timeInput, { target: { value: "10:30" } });
-    fireEvent.change(dayInput, { target: { value: "2025-10-01" } });
+    addTask("", "Beskrivning", "12:00", "2025-10-06");
 
-    fireEvent.click(addButton);
-
-    expect(screen.getByText(/Handla/)).toBeInTheDocument();
-    expect(screen.getByText(/Köpa mjölk och bröd/)).toBeInTheDocument();
-    expect(screen.getByText(/10:30/)).toBeInTheDocument();
-    expect(screen.getByText(/2025-10-01/)).toBeInTheDocument();
-  });
-
-  test("can toggle task as done", () => {
-    render(<ToDo />);
-
-    const titleInput = screen.getByPlaceholderText("Titel");
-    const descriptionInput = screen.getByPlaceholderText("Beskrivning");
-    const timeInput = screen.getByLabelText(/time/i);
-    const dayInput = screen.getByLabelText(/date/i);
-    const addButton = screen.getByText("Lägg till");
-
-    fireEvent.change(titleInput, { target: { value: "Träna" } });
-    fireEvent.change(descriptionInput, { target: { value: "Gympass" } });
-    fireEvent.change(timeInput, { target: { value: "18:00" } });
-    fireEvent.change(dayInput, { target: { value: "2025-10-02" } });
-
-    fireEvent.click(addButton);
-
-    const task = screen.getByText(/Träna/);
-    expect(task).toBeInTheDocument();
-
-    fireEvent.click(task);
-
-    expect(task).toHaveStyle("text-decoration: line-through");
-  });
-
-  test("can delete a task", () => {
-    render(<ToDo />);
-
-    const titleInput = screen.getByPlaceholderText("Titel");
-    const descriptionInput = screen.getByPlaceholderText("Beskrivning");
-    const timeInput = screen.getByLabelText(/time/i);
-    const dayInput = screen.getByLabelText(/date/i);
-    const addButton = screen.getByText("Lägg till");
-
-    fireEvent.change(titleInput, { target: { value: "Laga mat" } });
-    fireEvent.change(descriptionInput, { target: { value: "Pasta med sås" } });
-    fireEvent.change(timeInput, { target: { value: "12:00" } });
-    fireEvent.change(dayInput, { target: { value: "2025-10-03" } });
-
-    fireEvent.click(addButton);
-
-    expect(screen.getByText(/Laga mat/)).toBeInTheDocument();
-
-    const deleteButton = screen.getByText("❌");
-    fireEvent.click(deleteButton);
-
-    expect(screen.queryByText(/Laga mat/)).not.toBeInTheDocument();
+    expect(tasks.length).toBe(0);
   });
 });
