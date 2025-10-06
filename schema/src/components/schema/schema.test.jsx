@@ -16,7 +16,7 @@ describe("Kollar om alla dagar visas", () => {
 describe("kollar om tasks visas", () => {
   const tasks = [
     {
-      day: "2025-10-03",
+      day: "2025-10-08",
       description: "Städa",
       text: "Träna armar på gymmet",
       time: "18:34",
