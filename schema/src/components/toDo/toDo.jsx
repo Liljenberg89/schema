@@ -1,13 +1,12 @@
 import { useState } from "react";
 import "./toDo.css";
 
-const ToDo = ({ tasks, setTasks }) => {
+const ToDo = ({ tasks, setTasks, filter, setFilter }) => {
   const [taskText, setTaskText] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskTime, setTaskTime] = useState("");
   const [taskDay, setTaskDay] = useState("");
   const [taskCategory, setTaskCategory] = useState("Jobb");
-  const [filter, setFilter] = useState("Alla");
 
   const addTask = (e) => {
     e.preventDefault();
@@ -41,8 +40,10 @@ const ToDo = ({ tasks, setTasks }) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const filteredTasks = 
-    filter === "Alla" ? tasks : tasks.filter((task) => task.category === filter);
+  const filteredTasks =
+    filter === "Alla"
+      ? tasks
+      : tasks.filter((task) => task.category === filter);
 
   return (
     <div className="toDo-container">
@@ -88,23 +89,25 @@ const ToDo = ({ tasks, setTasks }) => {
 
         <button type="submit">Lägg till</button>
       </form>
-    
-      {/* 
-      <div className="filter-buttons">
+
+      <div className="filter-buttons" style={{ marginTop: 12 }}>
         {["Alla", "Jobb", "Skola", "Kul"].map((cat) => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
             className={filter === cat ? "active" : ""}
+            style={{ marginRight: 6 }}
           >
             {cat}
           </button>
         ))}
       </div>
 
+      <hr />
+
       <ul>
         {filteredTasks.map((task) => (
-          <li key={task.id}>
+          <li key={task.id} style={{ marginBottom: 8 }}>
             <span
               onClick={() => toggleDone(task.id)}
               style={{
@@ -116,11 +119,15 @@ const ToDo = ({ tasks, setTasks }) => {
               {task.description} <br />
               Tid: {task.time} | Dag: {task.day}
             </span>
-            <button onClick={() => deleteTask(task.id)}>❌</button>
+            <button
+              onClick={() => deleteTask(task.id)}
+              style={{ marginLeft: 8 }}
+            >
+              ❌
+            </button>
           </li>
         ))}
       </ul>
-      */}
     </div>
   );
 };
