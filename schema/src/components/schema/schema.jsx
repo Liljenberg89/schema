@@ -1,36 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./schema.css";
 
-const Schema = ({ tasks = [] }) => {
-  const getWeekday = (taskDay) => {
-    const date = new Date(taskDay);
-    return date.toLocaleDateString("sv-SE", { weekday: "long" });
-  };
-
-  const [day, setDay] = useState({
-    måndag: [],
-    tisdag: [],
-    onsdag: [],
-    torsdag: [],
-    fredag: [],
-    lördag: [],
-    söndag: [],
-  });
-
+const Schema = ({ tasks = [], filter = "Alla" }) => {
   const [weekOffset, setWeekOffset] = useState(0);
-
-  useEffect(() => {
-    console.log(tasks);
-    if (tasks.length > 0) {
-      const task = tasks[tasks.length - 1];
-      const rightDay = getWeekday(task.day).toLowerCase();
-
-      setDay((prev) => ({
-        ...prev,
-        [rightDay]: [...prev[rightDay], task],
-      }));
-    }
-  }, [tasks]);
 
   const startOfWeek = (date) => {
     const dayNum = date.getDay();
@@ -55,6 +27,37 @@ const Schema = ({ tasks = [] }) => {
     return `${yy}-${mm}-${dd}`;
   };
 
+  const makeEmptyDays = () => ({
+    måndag: [],
+    tisdag: [],
+    onsdag: [],
+    torsdag: [],
+    fredag: [],
+    lördag: [],
+    söndag: [],
+  });
+
+  const days = makeEmptyDays();
+
+  for (const task of tasks) {
+    if (!task.day) {
+      continue;
+    }
+    const d = new Date(task.day);
+    if (isNaN(d)) {
+      continue;
+    }
+
+    const dayName = d
+      .toLocaleDateString("sv-SE", { weekday: "long" })
+      .toLowerCase();
+    days[dayName]?.push(task);
+  }
+
+  Object.keys(days).forEach((k) => {
+    days[k].sort((a, b) => (a.time ?? "").localeCompare(b.time ?? ""));
+  });
+
   const todayMonday = startOfWeek(new Date());
   const currentWeekMonday = addDays(todayMonday, weekOffset * 7);
 
@@ -64,26 +67,43 @@ const Schema = ({ tasks = [] }) => {
         <button onClick={() => setWeekOffset((w) => w - 1)}>Tidigare</button>
       </div>
 
-      {Object.entries(day).map(([dayName, tasksArray], idx) => {
+      {Object.entries(days).map(([dayName, tasksArray], idx) => {
         const dateForColumn = addDays(currentWeekMonday, idx);
         const dateYMD = toYMD(dateForColumn);
 
         const visibleTasks = tasksArray.filter((task) => {
           const t = new Date(task.day);
-          return toYMD(t) === dateYMD;
+          if (isNaN(t)) {
+            return false;
+          }
+          if (toYMD(t) !== dateYMD) {
+            return false;
+          }
+          if (filter && filter !== "Alla" && task.category !== filter)
+            return false;
+          return true;
         });
 
         return (
-          <div key={dayName}>
+          <div
+            key={dayName}
+            className="schema-day-column"
+            style={{ marginBottom: 12 }}
+          >
             <h2>{dayName.charAt(0).toUpperCase() + dayName.slice(1)}</h2>
             <div>{dateYMD}</div>
+
+            {visibleTasks.length === 0 && (
+              <div className="schema-empty">Inga uppgifter</div>
+            )}
 
             {visibleTasks.map((task) => (
               <div className="schema-task" key={task.id}>
                 <div className="schema-task-head">
                   <h5>{task.time} </h5> - <h4>{task.text}</h4>
                 </div>
-                <p> {task.description}</p>
+                <p>{task.description}</p>
+                <small>Kategori: {task.category}</small>
               </div>
             ))}
           </div>
