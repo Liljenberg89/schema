@@ -50,6 +50,7 @@ const ToDo = ({ tasks, setTasks }) => {
 
       <form onSubmit={addTask}>
         <input
+          id="toDo-input"
           type="text"
           value={taskText}
           onChange={(e) => setTaskText(e.target.value)}
@@ -57,17 +58,20 @@ const ToDo = ({ tasks, setTasks }) => {
         />
         <input
           type="text"
+          id="toDo-input"
           value={taskDescription}
           onChange={(e) => setTaskDescription(e.target.value)}
           placeholder="Beskrivning"
         />
         <input
           type="time"
+          id="toDo-input"
           value={taskTime}
           onChange={(e) => setTaskTime(e.target.value)}
         />
         <input
           type="date"
+          id="toDo-input"
           value={taskDay}
           onChange={(e) => setTaskDay(e.target.value)}
         />
@@ -86,9 +90,9 @@ const ToDo = ({ tasks, setTasks }) => {
           </select>
         </label>
 
-        <button type="submit">Lägg till</button>
+        <button id="toDo-input" type="submit">Lägg till</button>
       </form>
-    
+      
       {/* 
       <div className="filter-buttons">
         {["Alla", "Jobb", "Skola", "Kul"].map((cat) => (

@@ -1,4 +1,14 @@
 .toDo-container {
-  width: 70vw;
-  margin-top: 100px;
+  margin: 20px;
+  background-color: darkgray;
+  padding: 10px;
+}
+form {
+  display: flex;
+  flex-direction: row;
+}
+#toDo-input,
+select,
+button {
+  margin-right: 8px; 
 }
