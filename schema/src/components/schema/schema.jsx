@@ -47,7 +47,6 @@ const Schema = ({ tasks = [], filter = "Alla" }) => {
     if (isNaN(d)) {
       continue;
     }
-
     const dayName = d
       .toLocaleDateString("sv-SE", { weekday: "long" })
       .toLowerCase();
@@ -88,6 +87,7 @@ const Schema = ({ tasks = [], filter = "Alla" }) => {
           <div
             key={dayName}
             className="schema-day-column"
+            data-cy={`day-${dayName}`}
             style={{ marginBottom: 12 }}
           >
             <h2>{dayName.charAt(0).toUpperCase() + dayName.slice(1)}</h2>
@@ -98,7 +98,7 @@ const Schema = ({ tasks = [], filter = "Alla" }) => {
             )}
 
             {visibleTasks.map((task) => (
-              <div className="schema-task" key={task.id}>
+              <div className="schema-task" key={task.id} data-cy="task">
                 <div className="schema-task-head">
                   <h5>{task.time} </h5> - <h4>{task.text}</h4>
                 </div>
