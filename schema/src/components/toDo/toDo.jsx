@@ -91,7 +91,9 @@ const ToDo = ({ tasks, setTasks, filter, setFilter }) => {
           </select>
         </label>
 
-        <button id="toDo-input" type="submit">Lägg till</button>
+        <button id="toDo-input" type="submit">
+          Lägg till
+        </button>
       </form>
 
       <div className="filter-buttons" style={{ marginTop: 12 }}>
@@ -106,8 +108,6 @@ const ToDo = ({ tasks, setTasks, filter, setFilter }) => {
           </button>
         ))}
       </div>
-
-      <hr />
 
       <ul>
         {filteredTasks.map((task) => (

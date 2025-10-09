@@ -9,12 +9,12 @@
 .schema-main {
   display: flex;
   justify-content: center;
-  height: 80vh;
+  height: 60vh;
   width: 100%;
   background-color: rgb(190, 190, 190);
 }
 .todo-main {
-  height: 20vh;
+  height: 40vh;
 }
 body {
   margin: 0;
