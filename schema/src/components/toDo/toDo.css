@@ -1,6 +1,6 @@
 .toDo-container {
   margin: 20px;
-  background-color: darkgray;
+  margin-top: 40px;
   padding: 10px;
 }
 form {
@@ -10,5 +10,5 @@ form {
 #toDo-input,
 select,
 button {
-  margin-right: 8px; 
+  margin-right: 8px;
 }

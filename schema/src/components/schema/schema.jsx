@@ -62,7 +62,7 @@ const Schema = ({ tasks = [], filter = "Alla" }) => {
 
   return (
     <div className="schema-box">
-      <div style={{ marginBottom: 10 }}>
+      <div>
         <button onClick={() => setWeekOffset((w) => w - 1)}>Tidigare</button>
       </div>
 
@@ -84,18 +84,11 @@ const Schema = ({ tasks = [], filter = "Alla" }) => {
         });
 
         return (
-          <div
-            key={dayName}
-            className="schema-day-column"
-            data-cy={`day-${dayName}`}
-            style={{ marginBottom: 12 }}
-          >
+          <div key={dayName} data-cy={`day-${dayName}`}>
             <h2>{dayName.charAt(0).toUpperCase() + dayName.slice(1)}</h2>
             <div>{dateYMD}</div>
 
-            {visibleTasks.length === 0 && (
-              <div className="schema-empty">Inga uppgifter</div>
-            )}
+            {visibleTasks.length === 0 && <div>Inga uppgifter</div>}
 
             {visibleTasks.map((task) => (
               <div className="schema-task" key={task.id} data-cy="task">
