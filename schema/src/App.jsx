@@ -9,13 +9,18 @@ function App() {
 
   return (
     <div className="app-body">
-      <ToDo
-        tasks={tasks}
-        setTasks={setTasks}
-        filter={filter}
-        setFilter={setFilter}
-      />
-      <Schema tasks={tasks} filter={filter} />
+      <div className="todo-main">
+        <ToDo
+          tasks={tasks}
+          setTasks={setTasks}
+          filter={filter}
+          setFilter={setFilter}
+        />
+      </div>
+
+      <div className="schema-main">
+        <Schema tasks={tasks} filter={filter} />
+      </div>
     </div>
   );
 }

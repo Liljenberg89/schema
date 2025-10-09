@@ -47,7 +47,6 @@ const Schema = ({ tasks = [], filter = "Alla" }) => {
     if (isNaN(d)) {
       continue;
     }
-
     const dayName = d
       .toLocaleDateString("sv-SE", { weekday: "long" })
       .toLowerCase();
@@ -63,7 +62,7 @@ const Schema = ({ tasks = [], filter = "Alla" }) => {
 
   return (
     <div className="schema-box">
-      <div style={{ marginBottom: 10 }}>
+      <div>
         <button onClick={() => setWeekOffset((w) => w - 1)}>Tidigare</button>
       </div>
 
@@ -85,20 +84,14 @@ const Schema = ({ tasks = [], filter = "Alla" }) => {
         });
 
         return (
-          <div
-            key={dayName}
-            className="schema-day-column"
-            style={{ marginBottom: 12 }}
-          >
+          <div key={dayName} data-cy={`day-${dayName}`}>
             <h2>{dayName.charAt(0).toUpperCase() + dayName.slice(1)}</h2>
             <div>{dateYMD}</div>
 
-            {visibleTasks.length === 0 && (
-              <div className="schema-empty">Inga uppgifter</div>
-            )}
+            {visibleTasks.length === 0 && <div>Inga uppgifter</div>}
 
             {visibleTasks.map((task) => (
-              <div className="schema-task" key={task.id}>
+              <div className="schema-task" key={task.id} data-cy="task">
                 <div className="schema-task-head">
                   <h5>{task.time} </h5> - <h4>{task.text}</h4>
                 </div>
