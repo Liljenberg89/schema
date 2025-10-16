@@ -96,18 +96,18 @@ const ToDo = ({ tasks, setTasks, filter, setFilter }) => {
         </button>
       </form>
 
-      <div className="filter-buttons" style={{ marginTop: 12 }}>
-        {["Alla", "Jobb", "Skola", "Kul"].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={filter === cat ? "active" : ""}
-            style={{ marginRight: 6 }}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      {["Alla", "Jobb", "Skola", "Kul"].map((cat) => (
+        <button
+          key={cat}
+          data-cy={`filter-${cat}`}
+          onClick={() => setFilter(cat)}
+          className={filter === cat ? "active" : ""}
+          style={{ marginRight: 6 }}
+        >
+          {cat}
+        </button>
+      ))}
+
 
       <ul>
         {filteredTasks.map((task) => (
